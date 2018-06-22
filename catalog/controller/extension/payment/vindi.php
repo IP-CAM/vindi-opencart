@@ -364,17 +364,27 @@ class ControllerExtensionPaymentVindi extends Controller
         $this->load->model('checkout/order');
         $this->load->model('account/customer');
         $this->load->model('extension/payment/vindi');
+        $this->load->language('extension/payment/vindi');
+
+        $orderStatusId = 7;
+        $http = 'HTTP/1.1 402 Fail';
+        $header = 'Content-Type: application/json';
+        $message = ['error' => 'Houve um erro ao transacionar'];
 
         $bill = $this->model_extension_payment_vindi->createBill($this->model_extension_payment_vindi->addCustomer(),
             (float)$this->cart->session->data['shipping_method']['cost']);
-        if (array_key_exists('errors', $bill)) {
-            $this->response->addHeader('"HTTP/1.1 402 Fail"');
-            $this->response->addHeader('Content-Type: application/json');
-            $this->response->setOutput(json_encode(['error' => 'Houve um erro ao transacionar']));
-        }else{
-            $this->response->addHeader('Content-Type: application/json');
-            $this->response->setOutput(json_encode(['status' => 'ok']));
+        if (!array_key_exists('errors', $bill)) {
+            $http = 'HTTP/1.1 200 Success';
+            $header = 'Content-Type: application/json';
+            $message = ['status' => 'ok'];
+            $orderStatusId = 15;
         }
+        $this->load->model('checkout/order');
+        $this->model_checkout_order->addOrderHistory($this->cart->session->data['order_id'], $orderStatusId,
+            $this->language->get('text_callback'));
+        $this->response->addHeader($http);
+        $this->response->addHeader($header);
+        $this->response->setOutput(json_encode($message));
 
 
     }
