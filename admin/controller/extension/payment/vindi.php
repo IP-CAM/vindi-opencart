@@ -112,7 +112,7 @@ class ControllerExtensionPaymentVindi extends Controller
         $data['gateways'] = [];
 
         $data['gateways'][] = [
-            'code' => 'sandbox',
+            'code' => 'sandbox-app',
             'text' => $this->language->get('text_gateway_sandbox'),
         ];
 
