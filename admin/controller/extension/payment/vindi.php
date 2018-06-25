@@ -167,7 +167,7 @@ class ControllerExtensionPaymentVindi extends Controller
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
-        if (empty($this->request->post['payment_vindi_api_key']) || strlen($this->request->post['payment_vindi_api_key']) < 16) {
+        if (empty($this->request->post['payment_vindi_api_key']) || strlen($this->request->post['payment_vindi_api_key']) < 43) {
             $this->error['api_key'] = $this->language->get('error_api_key');
         }
 

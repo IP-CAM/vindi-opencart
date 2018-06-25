@@ -95,7 +95,7 @@ $_['entry_risk_review_rejected_order_status']               = 'Risk Review: Reje
 
 // Error
 $_['error_permission']                                      = 'Warning: You do not have permission to modify payment Vindi Payment Gateway Services!';
-$_['error_api_key']                                         = 'You must specify a API Key with 43 characters.';
+$_['error_api_key']                                         = 'You must specify a <strong>Valid</strong> API Key with 43 characters.';
 $_['error_notification_secret']                             = 'You must specify your notification secret, which is 32 characters long.';
 $_['error_not_authorization']                               = 'Invalid transaction type. Expecting: AUTHORIZATION, AUTHORIZATION_UPDATE.';
 $_['error_not_capture']                                     = 'Invalid transaction type. Expecting: CAPTURE, PAYMENT.';
