@@ -5,7 +5,23 @@ class ModelExtensionPaymentVindi extends Model
     private $api_version = 'v1';
     private $extension_version = '1.0.0';
 
-
+    public function getMethod() 
+    { 
+        $method_data = []; 
+ 
+        if ($this->config->get('payment_vindi_status')) { 
+            $title_config = $this->config->get('payment_vindi_display_name'); 
+ 
+            $method_data = [ 
+                'code' => 'vindi', 
+                'title' => !empty($title_config[$this->config->get('config_language_id')]) ? $title_config[$this->config->get('config_language_id')] : 'Vindi OpenCart', 
+                'terms' => '', 
+                'sort_order' => $this->config->get('payment_vindi_sort_order'), 
+            ]; 
+        } 
+        return $method_data; 
+    } 
+    
     public function api($api_method, $data = [], $method = 'GET')
     {
         $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '';
