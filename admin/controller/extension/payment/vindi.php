@@ -109,7 +109,6 @@ class ControllerExtensionPaymentVindi extends Controller
         ];
 
 
-
         if (isset($this->request->post['payment_vindi_api_key'])) {
             $data['payment_vindi_api_key'] = $this->request->post['payment_vindi_api_key'];
         } else {
@@ -120,18 +119,6 @@ class ControllerExtensionPaymentVindi extends Controller
             $data['error_api_key'] = $this->error['api_key'];
         } else {
             $data['error_api_key'] = '';
-        }
-
-        if (isset($this->error['notification_secret'])) {
-            $data['error_notification_secret'] = $this->error['notification_secret'];
-        } else {
-            $data['error_notification_secret'] = '';
-        }
-
-        if (isset($this->error['integration_password'])) {
-            $data['error_integration_password'] = $this->error['integration_password'];
-        } else {
-            $data['error_integration_password'] = '';
         }
 
         if (isset($this->request->post['payment_vindi_debug_log'])) {

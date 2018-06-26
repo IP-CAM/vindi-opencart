@@ -86,7 +86,7 @@ $_['text_notification_ssl']                                 = 'Careful: This pay
 
 // Entry
 $_['entry_display_name']                                    = 'Display Name';
-$_['entry_geo_zone']                                        = 'Geo Zone';
+//$_['entry_geo_zone']                                        = 'Geo Zone';
 $_['entry_status']                                          = 'Status';
 $_['entry_sort_order']                                      = 'Sort Order';
 $_['entry_gateway']                                         = 'Payment Gateway';
