@@ -8,50 +8,62 @@
                 <div class="form-group required col-sm-12">
                     <label class="control-label" for="card-holder">Nome impresso no cartão</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="card-holder" name="card-holder"
-                               placeholder="Nome impresso no cartão" required="">
+                        <div style="width: 25em;"> 
+                            <input type="text" class="form-control" id="card-holder" name="card-holder"
+                            placeholder="Nome impresso no cartão" required="">
+                        </div>
                     </div>
                 </div>
                 <div class="form-group required col-sm-12">
-                    <label class="control-label" for="card-flag">Cards</label>
-                    <select class="form-control" id="card-flag" name="card-flag" required="" autofocus="">
-                        <option value="0">Selecione a Bandeira</option>
-                        {% for payment_company in payment_companies %}
-                            <option value="{{ payment_company.code }}">
-                                {{ payment_company.name }}
-                            </option>
-                        {% endfor %}
-                    </select>
+                    <label class="control-label" for="card-flag">Bandeira do cartão</label>
+                    <div style="width: 16em;"> 
+                        <select class="form-control" id="card-flag" name="card-flag" required="" autofocus="">
+                            <option value="0">Selecione a Bandeira</option>
+                            {% for payment_company in payment_companies %}
+                                <option value="{{ payment_company.code }}">
+                                    {{ payment_company.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
                 <div class="form-group required col-sm-12">
-                    <label class="control-label" for="card-number">{{ entry_cc_number }}</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="card-number" name="card-number"
-                               placeholder="Valid Card Number" required="">
-                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                    <label class="control-label" for="card-number">Número do cartão</label>
+                    <div style="width: 16em;"> 
+                        <div class="input-group">
+                            <input type="text" class="form-control" maxlength="16" id="card-number" name="card-number"
+                            placeholder="•••• •••• •••• ••••" required="">
+                            <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-group required col-sm-6">
-                    <label for="card-expiry-month">{{ entry_cc_expire_date }}</label>
+                    <label for="card-expiry-month">Data de expiração</label>
                     <div class="row">
                         <div class="col-xs-6 col-lg-6">
-                            <input type="text" class="form-control" name="card-expiry-month" id="card-expiry-month"
-                                   placeholder="MM" required="" data-stripe="exp_month">
+                            <div style="width: 4em;"> 
+                                <input type="text" class="form-control" name="card-expiry-month" id="card-expiry-month"
+                                placeholder="MM" required="" data-stripe="exp_month" maxlength="2">
+                            </div>
                         </div>
                         <div class="col-xs-6 col-lg-6">
-                            <input type="text" class="form-control" name="card-expiry-year" id="card-expiry-year"
-                                   placeholder="YY" required="" data-stripe="exp_year">
+                            <div style="width: 4em;"> 
+                                <input type="text" class="form-control" name="card-expiry-year" id="card-expiry-year"
+                                placeholder="AA" required="" data-stripe="exp_year" maxlength="2">
+                            </div>
                         </div>
                     </div>
                 </div>
 
 
                 <div class="form-group required col-sm-6">
-                    <label class="control-label" for="card-cvc">{{ entry_cc_cvv2 }}</label>
+                    <label class="control-label" for="card-cvc">CVV</label>
                     <div class="">
-                        <input type="text" name="card-cvc" value="" placeholder="{{ entry_cc_cvv2 }}" id="card-cvc"
-                               class="form-control" data-stripe="cvc"/>
+                        <div style="width: 5em;"> 
+                            <input type="text" name="card-cvc" value="" placeholder="CVV" id="card-cvc"
+                            class="form-control" data-stripe="cvc" maxlength="4"/>
+                        </div>
                     </div>
                 </div>
 
