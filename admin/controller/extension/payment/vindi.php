@@ -63,33 +63,10 @@ class ControllerExtensionPaymentVindi extends Controller
         $data['url_list_transactions'] = html_entity_decode($this->url->link('extension/payment/vindi/transactions',
             'user_token=' . $this->session->data['user_token'] . '&page={PAGE}', true));
 
-        if (isset($this->request->post['payment_vindi_approved_authorization_order_status_id'])) {
-            $data['payment_vindi_approved_authorization_order_status_id'] = $this->request->post['payment_vindi_approved_authorization_order_status_id'];
-        } else {
-            $data['payment_vindi_approved_authorization_order_status_id'] = $this->config->get('payment_vindi_approved_authorization_order_status_id');
-        }
-
-        if (isset($this->request->post['payment_vindi_approved_capture_order_status_id'])) {
-            $data['payment_vindi_approved_capture_order_status_id'] = $this->request->post['payment_vindi_approved_capture_order_status_id'];
-        } else {
-            $data['payment_vindi_approved_capture_order_status_id'] = $this->config->get('payment_vindi_approved_capture_order_status_id');
-        }
-
-
 
         $this->load->model('localisation/order_status');
 
         $data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
-
-        if (isset($this->request->post['payment_vindi_geo_zone_id'])) {
-            $data['payment_vindi_geo_zone_id'] = $this->request->post['payment_vindi_geo_zone_id'];
-        } else {
-            $data['payment_vindi_geo_zone_id'] = $this->config->get('payment_vindi_geo_zone_id');
-        }
-
-        $this->load->model('localisation/geo_zone');
-
-        $data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 
         if (isset($this->request->post['payment_vindi_status'])) {
             $data['payment_vindi_status'] = $this->request->post['payment_vindi_status'];
@@ -122,12 +99,6 @@ class ControllerExtensionPaymentVindi extends Controller
         ];
 
 
-        if (isset($this->request->post['payment_vindi_onclick'])) {
-            $data['payment_vindi_onclick'] = $this->request->post['payment_vindi_onclick'];
-        } else {
-            $data['payment_vindi_onclick'] = $this->config->get('payment_vindi_onclick');
-        }
-
         if (isset($this->request->post['payment_vindi_api_key'])) {
             $data['payment_vindi_api_key'] = $this->request->post['payment_vindi_api_key'];
         } else {
@@ -138,18 +109,6 @@ class ControllerExtensionPaymentVindi extends Controller
             $data['error_api_key'] = $this->error['api_key'];
         } else {
             $data['error_api_key'] = '';
-        }
-
-        if (isset($this->error['notification_secret'])) {
-            $data['error_notification_secret'] = $this->error['notification_secret'];
-        } else {
-            $data['error_notification_secret'] = '';
-        }
-
-        if (isset($this->error['integration_password'])) {
-            $data['error_integration_password'] = $this->error['integration_password'];
-        } else {
-            $data['error_integration_password'] = '';
         }
 
         if (isset($this->request->post['payment_vindi_debug_log'])) {
@@ -191,7 +150,7 @@ class ControllerExtensionPaymentVindi extends Controller
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
-        if (empty($this->request->post['payment_vindi_api_key']) || strlen($this->request->post['payment_vindi_api_key']) < 16) {
+        if (empty($this->request->post['payment_vindi_api_key']) || strlen($this->request->post['payment_vindi_api_key']) < 43) {
             $this->error['api_key'] = $this->language->get('error_api_key');
         }
 
