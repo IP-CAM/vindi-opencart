@@ -5,21 +5,8 @@ $_['text_callback']                         = 'Vindi Payment Gateway Services: %
 $_['text_new_card']                         = '-- New Card --';
 $_['text_existing_card']                    = 'Existing Card';
 $_['text_select_card']                      = 'For a faster checkout experience, you have the option to select one of the cards you used in previous purchases:';
-//$_['text_card_brand_amex']                  = 'American Express';
-//$_['text_card_brand_china_unionpay']        = 'China UnionPay';
-//$_['text_card_brand_diners_club']           = 'Diners Club';
-//$_['text_card_brand_discover']              = 'Discover';
-//$_['text_card_brand_jcb']                   = 'JCB (Japan Credit Bureau)';
-//$_['text_card_brand_maestro']               = 'Maestro';
-//$_['text_card_brand_mastercard']            = 'Vindi';
-//$_['text_card_brand_visa']                  = 'Visa';
-//$_['text_card_brand_uatp']                  = 'UATP (Universal Air Travel Plan)';
-//$_['text_card_brand_local_brand_only']      = 'Unknown Brand';
-//$_['text_card_brand_unknown']               = 'Unknown Brand';
 $_['text_loading']                          = 'Loading... Please wait...';
 $_['text_items']                            = 'Item(s)';
-//$_['text_log_notification_intro']           = '[Vindi Payment Gateway Services - NOTIFICATION %s]: ';
-//$_['text_log_validate_callback_intro']      = '[Vindi Payment Gateway Services - CALLBACK VALIDATE]: ';
 $_['text_log_api_intro']                    = '[Vindi Payment Gateway Services - REST API %s]: ';
 
 // Error
