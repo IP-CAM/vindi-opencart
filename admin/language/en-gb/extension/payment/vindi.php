@@ -6,53 +6,15 @@ $_['heading_title_transaction']                             = 'View Transaction 
 
 // Help
 $_['help_display_name']                                     = 'This text is the name of the payment method your customers will see during checkout. Default: Vindi Payment Gateway Services';
-$_['help_api_key']                                         = 'If you want to enable test mode, prepend <strong>TEST</strong> in front of the merchant name. Example: <strong>TESTMERCHANTID</strong>';
-$_['help_debug_log']                                        = 'Use this only for debugging purposes. Enabling this will log the following to your OpenCart error log: notification data, REST API requests, REST API responses';
-//$_['help_approved_authorization_order_status']              = 'Transaction of type AUTHORIZATION or AUTHORIZATION_UPDATE is approved.';
-//$_['help_approved_capture_order_status']                    = 'Transaction of type CAPTURE is approved.';
-//$_['help_approved_payment_order_status']                    = 'Transaction of type PAYMENT is approved.';
-//$_['help_approved_refund_order_status']                     = 'Transaction of type REFUND or REFUND_REQUEST is approved.';
-//$_['help_approved_void_order_status']                       = 'Transaction of type VOID_AUTHORIZATION, VOID_CAPTURE, VOID_PAYMENT or VOID_REFUND is approved.';
-//$_['help_approved_verification_order_status']               = 'Transaction of type VERIFICATION is approved.';
-//$_['help_unspecified_failure_order_status']                 = 'Transaction could not be processed.';
-//$_['help_declined_order_status']                            = 'Transaction declined by issuer.';
-//$_['help_timed_out_order_status']                           = 'Response timed out.';
-//$_['help_expired_card_order_status']                        = 'Transaction declined due to expired card.';
-//$_['help_insufficient_funds_order_status']                  = 'Transaction declined due to insufficient funds.';
-//$_['help_acquirer_system_error_order_status']               = 'Acquirer system error occurred processing the transaction.';
-//$_['help_system_error_order_status']                        = 'Internal system error occurred processing the transaction.';
-//$_['help_not_supported_order_status']                       = 'Transaction type not supported.';
-//$_['help_declined_do_not_contact_order_status']             = 'Transaction declined - do not contact issuer.';
-//$_['help_aborted_order_status']                             = 'Transaction aborted by payer.';
-//$_['help_blocked_order_status']                             = 'Transaction blocked due to Risk or 3D Secure blocking rules.';
-//$_['help_cancelled_order_status']                           = 'Transaction cancelled by payer.';
-//$_['help_deferred_transaction_received_order_status']       = 'Deferred transaction received and awaiting processing.';
-//$_['help_referred_order_status']                            = 'Transaction declined - refer to issuer.';
-//$_['help_authentication_failed_order_status']               = '3D Secure authentication failed.';
-//$_['help_invalid_csc_order_status']                         = 'Invalid card security code.';
-//$_['help_lock_failure_order_status']                        = 'Order locked - another transaction is in progress for this order.';
-//$_['help_submitted_order_status']                           = 'Transaction submitted - response has not yet been received.';
-//$_['help_not_enrolled_3d_secure_order_status']              = 'Card holder is not enrolled in 3D Secure.';
-//$_['help_pending_order_status']                             = 'Transaction is pending.';
-//$_['help_exceeded_retry_limit_order_status']                = 'Transaction retry limit exceeded.';
-//$_['help_duplicate_batch_order_status']                     = 'Transaction declined due to duplicate batch.';
-//$_['help_declined_avs_order_status']                        = 'Transaction declined due to address verification.';
-//$_['help_declined_csc_order_status']                        = 'Transaction declined due to card security code.';
-//$_['help_declined_avs_csc_order_status']                    = 'Transaction declined due to address verification and card security code.';
-//$_['help_declined_payment_plan_order_status']               = 'Transaction declined due to payment plan.';
-//$_['help_approved_pending_settlement_order_status']         = 'Transaction Approved - pending batch settlement.';
-//$_['help_partially_approved_order_status']                  = 'The transaction was approved for a lesser amount than requested.';
-//$_['help_unknown_order_status']                             = 'Response unknown.';
-//$_['help_risk_rejected_order_status']                       = 'Transaction risk is high and order is automatically rejected.';
-//$_['help_risk_review_pending_order_status']                 = 'Transaction risk review is pending.';
-//$_['help_risk_review_rejected_order_status']                = 'The order has been cancelled as a result of a transaction risk review, and a reversal transaction was attempted.';
-//$_['help_gateway']                                          = 'Select the payment gateway of your Merchant account. You also have the option to specify your own custom gateway.';
+$_['help_api_key']                                          = 'Enter the API Key that is located in <strong>Vindi</strong> under <strong>Settings -> API Access Keys</strong>.';
+$_['help_debug_log']                                        = 'Use this for debugging purposes. Enabling this will log the following to your OpenCart error log: notification data, REST API requests, REST API responses';
+$_['help_gateway']                                          = 'If you want to enable test mode, select <strong>Sandbox</strong> in connection mode.';
 
 // Tab
 $_['tab_setting']                                           = 'Settings';
 
 // Text
-$_['text_edit']                                             = 'Edit Vindi Payment Gateway Services';
+$_['text_edit']                                             = 'Vindi Payment Gateway Services';
 $_['text_extension']                                        = 'Extensions';
 $_['text_vindi']                                   = '<a target="_BLANK" href="https://www.vindi.com.br"><img src="view/image/payment/vindi.png" alt="Vindi Payment Gateway Services" title="Vindi Payment Gateway Services" style="border: 1px solid #EEEEEE;" /></a>';
 $_['text_success']                                          = 'Success: You have modified Vindi Payment Gateway Services payment module!';
@@ -89,8 +51,8 @@ $_['entry_display_name']                                    = 'Display Name';
 //$_['entry_geo_zone']                                        = 'Geo Zone';
 $_['entry_status']                                          = 'Status';
 $_['entry_sort_order']                                      = 'Sort Order';
-$_['entry_gateway']                                         = 'Payment Gateway';
 //$_['entry_onclick']                                         = 'Checkout Interaction';
+$_['entry_gateway']                                         = 'Connection Mode';
 $_['entry_api_key']                                         = 'API Key';
 $_['entry_debug_log']                                       = 'Debug Logging';
 //$_['entry_transaction_id']                                  = 'Transaction ID';
@@ -147,7 +109,7 @@ $_['entry_debug_log']                                       = 'Debug Logging';
 
 // Error
 $_['error_permission']                                      = 'Warning: You do not have permission to modify payment Vindi Payment Gateway Services!';
-$_['error_api_key']                                         = 'You must specify a API Key with more than 10 characters.';
+$_['error_api_key']                                         = 'You must specify a <strong>Valid</strong> API Key with 43 characters.';
 $_['error_notification_secret']                             = 'You must specify your notification secret, which is 32 characters long.';
 //$_['error_not_authorization']                               = 'Invalid transaction type. Expecting: AUTHORIZATION, AUTHORIZATION_UPDATE.';
 //$_['error_not_capture']                                     = 'Invalid transaction type. Expecting: CAPTURE, PAYMENT.';
