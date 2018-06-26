@@ -63,19 +63,6 @@ class ControllerExtensionPaymentVindi extends Controller
         $data['url_list_transactions'] = html_entity_decode($this->url->link('extension/payment/vindi/transactions',
             'user_token=' . $this->session->data['user_token'] . '&page={PAGE}', true));
 
-        if (isset($this->request->post['payment_vindi_approved_authorization_order_status_id'])) {
-            $data['payment_vindi_approved_authorization_order_status_id'] = $this->request->post['payment_vindi_approved_authorization_order_status_id'];
-        } else {
-            $data['payment_vindi_approved_authorization_order_status_id'] = $this->config->get('payment_vindi_approved_authorization_order_status_id');
-        }
-
-        if (isset($this->request->post['payment_vindi_approved_capture_order_status_id'])) {
-            $data['payment_vindi_approved_capture_order_status_id'] = $this->request->post['payment_vindi_approved_capture_order_status_id'];
-        } else {
-            $data['payment_vindi_approved_capture_order_status_id'] = $this->config->get('payment_vindi_approved_capture_order_status_id');
-        }
-
-
 
         $this->load->model('localisation/order_status');
 
@@ -122,11 +109,6 @@ class ControllerExtensionPaymentVindi extends Controller
         ];
 
 
-        if (isset($this->request->post['payment_vindi_onclick'])) {
-            $data['payment_vindi_onclick'] = $this->request->post['payment_vindi_onclick'];
-        } else {
-            $data['payment_vindi_onclick'] = $this->config->get('payment_vindi_onclick');
-        }
 
         if (isset($this->request->post['payment_vindi_api_key'])) {
             $data['payment_vindi_api_key'] = $this->request->post['payment_vindi_api_key'];
