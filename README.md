@@ -11,10 +11,39 @@ O **Vindi Opencart** oferece uma solução para pagamentos únicos com cartão d
  [Vindi](http://www.vindi.com.br/) é líder em cobrança recorrente no Brasil. Com centenas de clientes usando soluções como pagamento online, soluções de notas fiscais integradas, emissão de boletos por email e PDF, integrações com ERPs e diversos relatórios, a Vindi possibilita um sistema online completo para negócios de venda recorrente. Além disso, empresas podem usar o gateway de pagamento integrado ao billing recorrente ou para faturas avulsas.
 
 # Requisitos
-- PHP >=5.6;
-- Certificado digital HTTPS assinado por uma entidade certificadora;
-- Conta ativa na [Vindi](https://www.vindi.com.br "Vindi").
+- PHP >=5.6
+- Certificado digital HTTPS assinado por uma entidade certificadora
+- Conta ativa na [Vindi](https://www.vindi.com.br "Vindi")
 
 # Instalação
-1. Envie os arquivos do plugin para a pasta wp-content/plugins, ou utilize o instalador de plugins do WordPress.
-1. Ative o plugin.
+
+#### Instalação a partir do código fonte do repositório GitHub
+1. Baixar o arquivo .zip
+1. Alterar a extenção do arquivo para .ocmod.zip
+1. Acessar a seção do Instalador de Extensões do Opencart
+1. Realizar o envio do arquivo .ocmod.zip no instalador do Opencart
+
+# Configuração
+1. Acessar a aba do plugin nas Extensões de Pagamento (Extensions/Payment/Vindi)
+1. Clicar em editar
+1. Inserir a chave API obtida na Vindi
+1. Habilitar o plugin
+
+# Dúvidas
+Caso necessite de informações sobre a plataforma ou API por favor siga através do canal [Atendimento Vindi](http://atendimento.vindi.com.br/hc/pt-br)
+
+# Contribuindo
+Por favor, leia o arquivo [CONTRIBUTING.md](CONTRIBUTING.md).
+
+
+Caso tenha alguma sugestão ou bug para reportar por favor nos comunique através das [issues](./issues).
+
+# Changelog
+Todas as informações sobre cada release pode ser  [CHANGELOG.md](CHANGELOG.md).
+
+# Créditos
+- [Vindi](https://github.com/vindi)
+- [Todos os Contribuidores](https://github.com/vindi/vindi-woocommerce-subscriptions/contributors)
+
+# Licença
+GNU GPLv3. Por favor, veja o [Arquivo de Licença](LICENSE) para mais informações.
