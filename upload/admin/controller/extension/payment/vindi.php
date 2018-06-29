@@ -16,9 +16,8 @@ class ControllerExtensionPaymentVindi extends Controller
             $this->model_extension_payment_vindi->addProduct();
             $this->session->data['success'] = $this->language->get('text_success');
             $this->response->redirect($this->url->link('marketplace/extension',
-                'user_token=' . $this->session->data['user_token'] . '&type=payment', true));
+                'user_token='.$this->session->data['user_token'].'&type=payment', true));
         }
-
 
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];
@@ -33,36 +32,34 @@ class ControllerExtensionPaymentVindi extends Controller
             $data['success'] = '';
         }
 
-
         $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
-            'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true),
+            'href' => $this->url->link('common/dashboard', 'user_token='.$this->session->data['user_token'], true),
         ];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_extension'),
             'href' => $this->url->link('marketplace/extension',
-                'user_token=' . $this->session->data['user_token'] . '&type=payment', true),
+                'user_token='.$this->session->data['user_token'].'&type=payment', true),
         ];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
-            'href' => $this->url->link('extension/payment/vindi', 'user_token=' . $this->session->data['user_token'],
+            'href' => $this->url->link('extension/payment/vindi', 'user_token='.$this->session->data['user_token'],
                 true),
         ];
 
         $data['action'] = $this->url->link('extension/payment/vindi',
-            'user_token=' . $this->session->data['user_token'], true);
+            'user_token='.$this->session->data['user_token'], true);
         $data['rehook_events'] = $this->url->link('extension/payment/vindi/hook_events',
-            'user_token=' . $this->session->data['user_token'], true);
+            'user_token='.$this->session->data['user_token'], true);
         $data['cancel'] = $this->url->link('marketplace/extension',
-            'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
+            'user_token='.$this->session->data['user_token'].'&type=payment', true);
 
         $data['url_list_transactions'] = html_entity_decode($this->url->link('extension/payment/vindi/transactions',
-            'user_token=' . $this->session->data['user_token'] . '&page={PAGE}', true));
-
+            'user_token='.$this->session->data['user_token'].'&page={PAGE}', true));
 
         $this->load->model('localisation/order_status');
 
@@ -98,7 +95,6 @@ class ControllerExtensionPaymentVindi extends Controller
             'text' => $this->language->get('text_gateway_production'),
         ];
 
-
         if (isset($this->request->post['payment_vindi_api_key'])) {
             $data['payment_vindi_api_key'] = $this->request->post['payment_vindi_api_key'];
         } else {
@@ -131,15 +127,14 @@ class ControllerExtensionPaymentVindi extends Controller
         foreach ($this->model_localisation_language->getLanguages() as $language) {
             $data['languages'][] = [
                 'language_id' => $language['language_id'],
-                'name' => $language['name'] . ($language['code'] == $this->config->get('config_language') ? $this->language->get('text_default') : ''),
-                'image' => 'language/' . $language['code'] . '/' . $language['code'] . '.png',
+                'name'        => $language['name'].($language['code'] == $this->config->get('config_language') ? $this->language->get('text_default') : ''),
+                'image'       => 'language/'.$language['code'].'/'.$language['code'].'.png',
             ];
         }
 
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
-
 
         $this->response->setOutput($this->load->view('extension/payment/vindi', $data));
     }
@@ -154,12 +149,10 @@ class ControllerExtensionPaymentVindi extends Controller
             $this->error['api_key'] = $this->language->get('error_api_key');
         }
 
-
         if ($this->error && !isset($this->error['warning'])) {
             $this->error['warning'] = $this->language->get('error_warning');
         }
 
         return !$this->error;
     }
-
 }

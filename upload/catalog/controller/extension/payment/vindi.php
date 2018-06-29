@@ -28,9 +28,9 @@ class ControllerExtensionPaymentVindi extends Controller
         }
         $this->load->model('extension/payment/vindi');
         $data['payment_companies'] = $this->model_extension_payment_vindi->getPaymentCompanies('credit_card');
+
         return $this->load->view('extension/payment/vindi', $data);
     }
-
 
     public function js()
     {
@@ -43,9 +43,9 @@ class ControllerExtensionPaymentVindi extends Controller
 
         $this->load->model('extension/payment/vindi');
 
-        $data['checkout_script'] = $this->model_extension_payment_vindi->getGateway() . '/checkout/version/' . $this->model_extension_payment_vindi->getApiVersion() . '/checkout.js';
+        $data['checkout_script'] = $this->model_extension_payment_vindi->getGateway().'/checkout/version/'.$this->model_extension_payment_vindi->getApiVersion().'/checkout.js';
 
-        $this->response->addHeader("Content-Type:application/javascript");
+        $this->response->addHeader('Content-Type:application/javascript');
         $this->response->setOutput($this->load->view('extension/payment/vindi_js', $data));
     }
 
@@ -77,7 +77,7 @@ class ControllerExtensionPaymentVindi extends Controller
                     $configuration['apiOperation'] = 'AUTHORIZE';
                 }
 
-                $response = $this->model_extension_payment_vindi->api('order/' . $this->session->data['order_id'] . '/transaction/1',
+                $response = $this->model_extension_payment_vindi->api('order/'.$this->session->data['order_id'].'/transaction/1',
                     $configuration, 'PUT');
 
                 if (!empty($response['result']) && $response['result'] == 'ERROR' && $response['error']['cause'] == 'INVALID_REQUEST') {
@@ -92,7 +92,7 @@ class ControllerExtensionPaymentVindi extends Controller
             }
         }
 
-        $this->response->addHeader("Content-Type:application/json");
+        $this->response->addHeader('Content-Type:application/json');
         $this->response->setOutput(json_encode($json));
     }
 
@@ -107,7 +107,7 @@ class ControllerExtensionPaymentVindi extends Controller
             !empty($this->request->get['resultIndicator']) &&
             $this->session->data['vindi']['successIndicator'] === $this->request->get['resultIndicator']
         ) {
-            $session_data = $this->model_extension_payment_vindi->api('session/' . $this->session->data['vindi']['session']['id']);
+            $session_data = $this->model_extension_payment_vindi->api('session/'.$this->session->data['vindi']['session']['id']);
 
             if (!empty($session_data['billing']['address']) && !empty($session_data['interaction']['displayControl']['billingAddress']) && in_array($session_data['interaction']['displayControl']['billingAddress'],
                     ['MANDATORY', 'OPTIONAL'])) {
@@ -190,12 +190,12 @@ class ControllerExtensionPaymentVindi extends Controller
             $risk_gateway_code = !empty($transaction_info['risk']['response']['gatewayCode']) ? $transaction_info['risk']['response']['gatewayCode'] : null;
 
             switch ($risk_gateway_code) {
-                case 'REJECTED' :
+                case 'REJECTED':
                     {
                         $this->model_extension_payment_vindi->addOrderHistory([
-                            'order_id' => (int)$transaction_info['order']['reference'],
-                            'order_status_id' => (int)$this->config->get('payment_vindi_risk_rejected_order_status_id'),
-                            'message' => sprintf(
+                            'order_id'        => (int) $transaction_info['order']['reference'],
+                            'order_status_id' => (int) $this->config->get('payment_vindi_risk_rejected_order_status_id'),
+                            'message'         => sprintf(
                                 $this->language->get('text_callback'),
                                 $transaction_info['transaction']['type'],
                                 'RISK (REJECTED)',
@@ -204,7 +204,7 @@ class ControllerExtensionPaymentVindi extends Controller
                         ]);
                     }
                     break;
-                case 'REVIEW_REQUIRED' :
+                case 'REVIEW_REQUIRED':
                     {
                         $decision_exists = !empty($transaction_info['risk']['response']['review']['decision']);
                         $decision_skipped = $decision_exists && in_array($transaction_info['risk']['response']['review']['decision'],
@@ -214,19 +214,19 @@ class ControllerExtensionPaymentVindi extends Controller
                             $this->add_default_order_history($transaction_info);
                         } else {
                             $this->model_extension_payment_vindi->addOrderHistory([
-                                'order_id' => (int)$transaction_info['order']['reference'],
-                                'order_status_id' => (int)$this->config->get('payment_vindi_risk_review_' . strtolower($transaction_info['risk']['response']['review']['decision']) . '_order_status_id'),
-                                'message' => sprintf(
+                                'order_id'        => (int) $transaction_info['order']['reference'],
+                                'order_status_id' => (int) $this->config->get('payment_vindi_risk_review_'.strtolower($transaction_info['risk']['response']['review']['decision']).'_order_status_id'),
+                                'message'         => sprintf(
                                     $this->language->get('text_callback'),
                                     $transaction_info['transaction']['type'],
-                                    'RISK_REVIEW (' . $transaction_info['risk']['response']['review']['decision'] . ')',
+                                    'RISK_REVIEW ('.$transaction_info['risk']['response']['review']['decision'].')',
                                     $transaction_info['transaction']['id']
                                 ),
                             ]);
                         }
                     }
                     break;
-                default :
+                default:
                     {
                         $this->add_default_order_history($transaction_info);
                     }
@@ -246,9 +246,8 @@ class ControllerExtensionPaymentVindi extends Controller
         // 1. Verify that the notification comes from an HTTPS connection.
 
         if (!isset($this->request->server['HTTPS']) || ($this->request->server['HTTPS'] != 'on' && $this->request->server['HTTPS'] != '1') || $this->request->server['SERVER_PORT'] != 443) {
-
             if ($this->config->get('payment_vindi_debug_log')) {
-                $this->log->write($this->language->get('text_log_validate_callback_intro') . $this->language->get('error_validate_protocol'));
+                $this->log->write($this->language->get('text_log_validate_callback_intro').$this->language->get('error_validate_protocol'));
             }
 
             return false;
@@ -257,9 +256,8 @@ class ControllerExtensionPaymentVindi extends Controller
         // 2. Verify that the Webhook secret matches the Webhook secret that we have stored.
 
         if (!$this->config->get('payment_vindi_notification_secret') || $this->config->get('payment_vindi_notification_secret') != $this->model_extension_payment_vindi->getHeaderVar('HTTP_X_NOTIFICATION_SECRET')) {
-
             if ($this->config->get('payment_vindi_debug_log')) {
-                $this->log->write($this->language->get('text_log_validate_callback_intro') . $this->language->get('error_secret_mismatch'));
+                $this->log->write($this->language->get('text_log_validate_callback_intro').$this->language->get('error_secret_mismatch'));
             }
 
             return false;
@@ -271,7 +269,7 @@ class ControllerExtensionPaymentVindi extends Controller
 
         if (!$transaction_info) {
             if ($this->config->get('payment_vindi_debug_log')) {
-                $this->log->write($this->language->get('text_log_validate_callback_intro') . $this->language->get('error_notification_parse'));
+                $this->log->write($this->language->get('text_log_validate_callback_intro').$this->language->get('error_notification_parse'));
             }
 
             return false;
@@ -290,7 +288,7 @@ class ControllerExtensionPaymentVindi extends Controller
 
         if ($is_transaction_logged && !$is_risk_review) {
             if ($this->config->get('payment_vindi_debug_log')) {
-                $this->log->write($this->language->get('text_log_validate_callback_intro') . $this->language->get('error_transaction_logged'));
+                $this->log->write($this->language->get('text_log_validate_callback_intro').$this->language->get('error_transaction_logged'));
             }
 
             return false;
@@ -307,50 +305,50 @@ class ControllerExtensionPaymentVindi extends Controller
 
         if ($transaction_info['response']['gatewayCode'] == 'APPROVED') {
             switch ($transaction_info['transaction']['type']) {
-                case 'AUTHORIZATION' :
-                case 'AUTHORIZATION_UPDATE' :
+                case 'AUTHORIZATION':
+                case 'AUTHORIZATION_UPDATE':
                     {
                         $order_status_id = $this->config->get('payment_vindi_approved_authorization_order_status_id');
                     }
                     break;
-                case 'CAPTURE' :
+                case 'CAPTURE':
                     {
                         $order_status_id = $this->config->get('payment_vindi_approved_capture_order_status_id');
                     }
                     break;
-                case 'PAYMENT' :
+                case 'PAYMENT':
                     {
                         $order_status_id = $this->config->get('payment_vindi_approved_payment_order_status_id');
                     }
                     break;
-                case 'REFUND_REQUEST' :
-                case 'REFUND' :
+                case 'REFUND_REQUEST':
+                case 'REFUND':
                     {
                         $order_status_id = $this->config->get('payment_vindi_approved_refund_order_status_id');
                     }
                     break;
-                case 'VOID_AUTHORIZATION' :
-                case 'VOID_CAPTURE' :
-                case 'VOID_PAYMENT' :
-                case 'VOID_REFUND' :
+                case 'VOID_AUTHORIZATION':
+                case 'VOID_CAPTURE':
+                case 'VOID_PAYMENT':
+                case 'VOID_REFUND':
                     {
                         $order_status_id = $this->config->get('payment_vindi_approved_void_order_status_id');
                     }
                     break;
-                case 'VERIFICATION' :
+                case 'VERIFICATION':
                     {
                         $order_status_id = $this->config->get('payment_vindi_approved_verification_order_status_id');
                     }
                     break;
             }
         } else {
-            $order_status_id = $this->config->get('payment_vindi_' . strtolower($transaction_info['response']['gatewayCode']) . '_order_status_id');
+            $order_status_id = $this->config->get('payment_vindi_'.strtolower($transaction_info['response']['gatewayCode']).'_order_status_id');
         }
 
         $this->model_extension_payment_vindi->addOrderHistory([
-            'order_id' => (int)$transaction_info['order']['reference'],
-            'order_status_id' => (int)$order_status_id,
-            'message' => sprintf(
+            'order_id'        => (int) $transaction_info['order']['reference'],
+            'order_status_id' => (int) $order_status_id,
+            'message'         => sprintf(
                 $this->language->get('text_callback'),
                 $transaction_info['transaction']['type'],
                 $transaction_info['result'],
@@ -372,7 +370,7 @@ class ControllerExtensionPaymentVindi extends Controller
         $message = ['error' => 'Houve um erro ao transacionar'];
 
         $bill = $this->model_extension_payment_vindi->createBill($this->model_extension_payment_vindi->addCustomer(),
-            (float)$this->cart->session->data['shipping_method']['cost']);
+            (float) $this->cart->session->data['shipping_method']['cost']);
         if (!array_key_exists('errors', $bill)) {
             $http = 'HTTP/1.1 200 Success';
             $header = 'Content-Type: application/json';
@@ -385,8 +383,6 @@ class ControllerExtensionPaymentVindi extends Controller
         $this->response->addHeader($http);
         $this->response->addHeader($header);
         $this->response->setOutput(json_encode($message));
-
-
     }
 
     protected function configuration($hosted = true)
@@ -506,7 +502,7 @@ class ControllerExtensionPaymentVindi extends Controller
                 $c['shipping']['contact']['phone'] = utf8_substr($customer_info['telephone'], 0, 20);
             }
 
-            $c['order']['custom']['customerId'] = (int)$this->customer->getId();
+            $c['order']['custom']['customerId'] = (int) $this->customer->getId();
         } elseif (isset($this->session->data['guest'])) {
             if (!empty($this->session->data['guest']['firstname'])) {
                 $c['customer']['firstName'] = utf8_substr($this->session->data['guest']['firstname'], 0, 50);
@@ -577,7 +573,6 @@ class ControllerExtensionPaymentVindi extends Controller
         }
 
         if (!$hosted) {
-
             if (isset($this->request->server['HTTP_USER_AGENT'])) {
                 $c['device']['browser'] = $this->request->server['HTTP_USER_AGENT'];
             } else {
@@ -596,8 +591,8 @@ class ControllerExtensionPaymentVindi extends Controller
 
         $total_data = [
             'totals' => &$totals,
-            'taxes' => &$taxes,
-            'total' => &$total,
+            'taxes'  => &$taxes,
+            'total'  => &$total,
         ];
 
         $this->load->model('setting/extension');
@@ -607,17 +602,17 @@ class ControllerExtensionPaymentVindi extends Controller
         $results = $this->model_setting_extension->getExtensions('total');
 
         foreach ($results as $key => $value) {
-            $sort_order[$key] = $this->config->get($value['code'] . '_sort_order');
+            $sort_order[$key] = $this->config->get($value['code'].'_sort_order');
         }
 
         array_multisort($sort_order, SORT_ASC, $results);
 
         foreach ($results as $result) {
-            if ($this->config->get('total_' . $result['code'] . '_status')) {
-                $this->load->model('extension/total/' . $result['code']);
+            if ($this->config->get('total_'.$result['code'].'_status')) {
+                $this->load->model('extension/total/'.$result['code']);
 
                 // We have to put the totals in an array so that they pass by reference.
-                $this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+                $this->{'model_extension_total_'.$result['code']}->getTotal($total_data);
             }
         }
 
@@ -659,7 +654,7 @@ class ControllerExtensionPaymentVindi extends Controller
                 $result_tax += $rounded_val;
                 $result_tax_data[] = [
                     'amount' => $rounded_val,
-                    'type' => $value['title'],
+                    'type'   => $value['title'],
                 ];
             }
 
@@ -727,8 +722,8 @@ class ControllerExtensionPaymentVindi extends Controller
                         }
                     }
 
-                    $option_data[] = $option['name'] . ':' . (utf8_strlen($value) > 20 ? utf8_substr($value, 0,
-                                20) . '..' : $value);
+                    $option_data[] = $option['name'].':'.(utf8_strlen($value) > 20 ? utf8_substr($value, 0,
+                                20).'..' : $value);
                 }
 
                 $entry = [];
@@ -764,10 +759,10 @@ class ControllerExtensionPaymentVindi extends Controller
             $c['order']['productSKU'] = $most_expensive_sku;
         } else {
             $c['order']['item'][] = [
-                'name' => 'Order #' . $c['order']['reference'],
-                'quantity' => 1,
-                'unitPrice' => $sub_total,
-                'description' => 'Order #' . $c['order']['reference'],
+                'name'        => 'Order #'.$c['order']['reference'],
+                'quantity'    => 1,
+                'unitPrice'   => $sub_total,
+                'description' => 'Order #'.$c['order']['reference'],
             ];
         }
 
